@@ -36,7 +36,7 @@ public class StringCalculator {
         }
     }
     
-    public void enter(String s) {
+    public void enter(final String s) {
         values = s.split(" ");
         if(values.length < 3) {
             throw new IllegalArgumentException("입력값이 올바르지 않습니다");
@@ -73,7 +73,7 @@ public class StringCalculator {
     }
     
     private enum Operator {
-        PLUS("+", Double::sum),
+        PLUS("+", (e1, e2)->e1 + e2),
         MINUS("-", (e1, e2)->e1 - e2),
         DIVISION("/", (e1, e2)->e1 / e2),
         MULTI("*", (e1, e2)->e1 * e2);
