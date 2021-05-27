@@ -28,6 +28,14 @@ public class StringCalculator {
         return result;
     }
     
+    public void calculate() {
+        result = operands.poll();
+        while(operands.size() != 0) {
+            Operator operator = Operator.of(operators.poll());
+            result = operator.calculate(result, operands.poll());
+        }
+    }
+    
     public void enter(String s) {
         values = s.split(" ");
         if(values.length < 3) {
@@ -62,14 +70,6 @@ public class StringCalculator {
             return false;
         }
         return s.matches("-?\\d+(\\.\\d+)?");
-    }
-    
-    public void calculate() {
-        result = operands.poll();
-        while(operands.size() != 0) {
-            Operator operator = Operator.of(operators.poll());
-            result = operator.calculate(result, operands.poll());
-        }
     }
     
     private enum Operator {

@@ -4,7 +4,7 @@
 #   fix     : bug fix
 #   refactor: refactoring production code
 #   test    : adding or refactoring tests
-#             no productin code change
+#             no production code change
 # ------------------------------------------------------------------
 # Remember me
 #

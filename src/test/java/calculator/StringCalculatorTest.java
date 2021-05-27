@@ -41,8 +41,8 @@ class StringCalculatorTest {
                         "8 / 4:2",
                         "2 * 3 / 3 / 2:1",
                         "2 + 3 * 4 / 2:10"}, delimiter = ':')
-    void calculate(String input, double expected) {
-        calculator.enter(input);
+    void calculate(String param, double expected) {
+        calculator.enter(param);
         calculator.calculate();
         assertThat(calculator.getResult()).isEqualTo(expected);
     }
