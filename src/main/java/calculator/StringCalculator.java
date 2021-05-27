@@ -30,37 +30,35 @@ public class StringCalculator {
     
     public void enter(String s) {
         values = s.split(" ");
-        
         if(values.length < 3) {
             throw new IllegalArgumentException("입력값이 올바르지 않습니다");
         }
-        
         for(int i = 0; i < values.length; i++) {
-            calculatePreTask(i);
+            validate(i, values[i]);
+            add(values[i]);
         }
     }
     
-    private void calculatePreTask(final int i) {
-        String value = values[i];
-        
-        if(i % 2 == 0 && !isNumeric(value)) {
+    private void validate(final int idx, final String value) {
+        if(idx % 2 == 0 && !isNumeric(value)) {
             throw new IllegalArgumentException("입력값이 올바르지 않습니다");
         }
-        
-        if(i % 2 == 1 && isNumeric(value)) {
+        if(idx % 2 == 1 && isNumeric(value)) {
             throw new IllegalArgumentException("입력값이 올바르지 않습니다");
         }
-        
+    }
+    
+    private void add(final String value) {
         if(isNumeric(value)) {
             operands.add(valueOf(value));
         }
-        else {
+        if(!isNumeric(value)) {
             operators.add(value);
         }
     }
     
     private static boolean isNumeric(final String s) {
-        if(s.equals("")) {
+        if("".equals(s)) {
             return false;
         }
         return s.matches("-?\\d+(\\.\\d+)?");
