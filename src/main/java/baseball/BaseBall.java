@@ -13,14 +13,14 @@ public class BaseBall {
     public void run() {
         String generate = RandomNumberGenerator.generate();
         while(strikeCount != 3) {
-            computed(Inputter.inputNumber(), generate);
-            Outter.print();
+            computed(Input.number(), generate);
+            Output.print();
         }
         restart();
     }
     
     private void restart() {
-        int trigger = Inputter.restartQuestion();
+        int trigger = Input.restartQuestion();
         if(trigger == 1) {
             new BaseBall().run();
         }
@@ -73,9 +73,9 @@ public class BaseBall {
         
     }
     
-    private static class Inputter {
+    private static class Input {
         
-        private static String inputNumber() {
+        private static String number() {
             System.out.print("\n숫자를 입력해 주세요 : ");
             Scanner sc = new Scanner(System.in);
             return sc.nextLine();
@@ -89,7 +89,7 @@ public class BaseBall {
         
     }
     
-    private static class Outter {
+    private static class Output {
         
         private static void print() {
             if(ballCount != 0) {
