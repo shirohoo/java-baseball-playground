@@ -11,9 +11,9 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SetTest {
-    
+
     private Set<Integer> numbers;
-    
+
     @BeforeEach
     void setUp() {
         numbers = new HashSet<>();
@@ -22,14 +22,14 @@ public class SetTest {
         numbers.add(2);
         numbers.add(3);
     }
-    
+
     @DisplayName("요구사항1")
     @Test
     void size() {
         int size = numbers.size();
         assertThat(size).isEqualTo(3);
     }
-    
+
     @DisplayName("요구사항2")
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3})
@@ -37,13 +37,17 @@ public class SetTest {
         boolean contains = numbers.contains(element);
         assertThat(contains).isTrue();
     }
-    
+
     @DisplayName("요구사항3")
     @ParameterizedTest
-    @CsvSource(value = {"1:true", "2:true", "3:true", "4:false", "5:false"}, delimiter = ':')
+    @CsvSource(value = {"1:true",
+                        "2:true",
+                        "3:true",
+                        "4:false",
+                        "5:false"}, delimiter = ':')
     void contains_2(int element, boolean expected) {
         boolean contains = numbers.contains(element);
         assertThat(contains).isEqualTo(expected);
     }
-    
+
 }

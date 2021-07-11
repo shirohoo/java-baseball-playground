@@ -10,16 +10,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class StringCalculatorTest {
-    
     StringCalculator calculator;
-    
+
     @BeforeEach
     void setUp() {
-        calculator = new StringCalculator();
+        calculator = StringCalculator.createStringCalculator();
     }
-    
-    @DisplayName("입력_테스트")
+
     @ParameterizedTest
+    @DisplayName("문자열계산기_입력_테스트")
     @ValueSource(strings = {"",
                             "++*/",
                             "12345",
@@ -27,14 +26,13 @@ class StringCalculatorTest {
                             "2 + + * 4 / 2",
                             "+ + + + + + /,"})
     void enter(String param) {
-        assertThatThrownBy(()->{
-            calculator.enter(param);
-        }).isInstanceOf(IllegalArgumentException.class)
-          .hasMessageContaining("입력값이 올바르지 않습니다");
+        assertThatThrownBy(() -> calculator.enter(param))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("입력값이 올바르지 않습니다");
     }
-    
-    @DisplayName("계산_테스트")
+
     @ParameterizedTest
+    @DisplayName("문자열계산기_계산_테스트")
     @CsvSource(value = {"1 + 2:3",
                         "4 - 2:2",
                         "6 * 2:12",
@@ -43,8 +41,7 @@ class StringCalculatorTest {
                         "2 + 3 * 4 / 2:10"}, delimiter = ':')
     void calculate(String param, double expected) {
         calculator.enter(param);
-        calculator.calculate();
-        assertThat(calculator.getResult()).isEqualTo(expected);
+        double result = calculator.calculate();
+        assertThat(result).isEqualTo(expected);
     }
-    
 }
