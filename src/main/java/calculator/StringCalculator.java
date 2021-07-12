@@ -66,8 +66,8 @@ class StringCalculator {
     double calculate() {
         result = operands.poll();
         while(operands.size() != 0) {
-            Operator operator = Operator.from(operators.poll());
-            result = operator.calculate(result, operands.poll());
+            StringCalculatorOperator stringCalculatorOperator = StringCalculatorOperator.from(operators.poll());
+            result = stringCalculatorOperator.calculate(result, operands.poll());
         }
         return result;
     }

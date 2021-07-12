@@ -3,7 +3,7 @@ package calculator;
 import java.util.Arrays;
 import java.util.function.BinaryOperator;
 
-enum Operator {
+enum StringCalculatorOperator {
     PLUS("+", (e1, e2) -> e1 + e2),
     MINUS("-", (e1, e2) -> e1 - e2),
     DIVISION("/", (e1, e2) -> e1 / e2),
@@ -12,13 +12,13 @@ enum Operator {
     private String operator;
     private BinaryOperator<Double> binaryOperator;
 
-    Operator(final String operator, final BinaryOperator<Double> binaryOperator) {
+    StringCalculatorOperator(final String operator, final BinaryOperator<Double> binaryOperator) {
         this.operator = operator;
         this.binaryOperator = binaryOperator;
     }
 
-    static Operator from(final String operator) {
-        return Arrays.stream(Operator.values())
+    static StringCalculatorOperator from(final String operator) {
+        return Arrays.stream(StringCalculatorOperator.values())
                      .filter(value -> value.operator.equals(operator))
                      .findFirst()
                      .orElseThrow(() -> new IllegalArgumentException("입력값이 올바르지 않습니다"));

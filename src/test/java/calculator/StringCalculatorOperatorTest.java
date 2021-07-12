@@ -10,17 +10,17 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class OperatorTest {
+class StringCalculatorOperatorTest {
     @ParameterizedTest
     @DisplayName("입력_테스트")
     @MethodSource("inputArgs")
     void enter(String operator, Class clazz) {
         if(!operator.contains(" ")) {
-            assertThat(Operator.from(operator).getClass()).isEqualTo(clazz);
+            assertThat(StringCalculatorOperator.from(operator).getClass()).isEqualTo(clazz);
             return;
         }
         if(operator.contains(" ")) {
-            assertThatThrownBy(() -> Operator.from(operator))
+            assertThatThrownBy(() -> StringCalculatorOperator.from(operator))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("입력값이 올바르지 않습니다");
         }
@@ -28,21 +28,21 @@ class OperatorTest {
 
     static Stream<Arguments> inputArgs() {
         return Stream.of(
-                Arguments.of("+", Operator.class),
-                Arguments.of("-", Operator.class),
-                Arguments.of("/", Operator.class),
-                Arguments.of("*", Operator.class),
-                Arguments.of(" + ", Operator.class),
-                Arguments.of(" - ", Operator.class),
-                Arguments.of(" / ", Operator.class),
-                Arguments.of(" * ", Operator.class));
+                Arguments.of("+", StringCalculatorOperator.class),
+                Arguments.of("-", StringCalculatorOperator.class),
+                Arguments.of("/", StringCalculatorOperator.class),
+                Arguments.of("*", StringCalculatorOperator.class),
+                Arguments.of(" + ", StringCalculatorOperator.class),
+                Arguments.of(" - ", StringCalculatorOperator.class),
+                Arguments.of(" / ", StringCalculatorOperator.class),
+                Arguments.of(" * ", StringCalculatorOperator.class));
     }
 
     @ParameterizedTest
     @DisplayName("입력_테스트")
     @MethodSource("calcArgs")
     void calculate(String operator, double e1, double e2, double result) {
-        assertThat(Operator.from(operator).calculate(e1, e2)).isEqualTo(result);
+        assertThat(StringCalculatorOperator.from(operator).calculate(e1, e2)).isEqualTo(result);
     }
 
     static Stream<Arguments> calcArgs() {
