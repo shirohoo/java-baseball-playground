@@ -18,7 +18,7 @@ class StringCalculatorTest {
     }
 
     @ParameterizedTest
-    @DisplayName("문자열계산기_입력_테스트")
+    @DisplayName("입력 테스트")
     @ValueSource(strings = {"",
                             "++*/",
                             "12345",
@@ -32,7 +32,7 @@ class StringCalculatorTest {
     }
 
     @ParameterizedTest
-    @DisplayName("문자열계산기_계산_테스트")
+    @DisplayName("계산 테스트")
     @CsvSource(value = {"1 + 2:3",
                         "4 - 2:2",
                         "6 * 2:12",

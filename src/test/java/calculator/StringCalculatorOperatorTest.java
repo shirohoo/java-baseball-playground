@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class StringCalculatorOperatorTest {
     @ParameterizedTest
-    @DisplayName("입력_테스트")
+    @DisplayName("입력 테스트")
     @MethodSource("inputArgs")
     void enter(String operator, Class clazz) {
         if(!operator.contains(" ")) {
@@ -39,7 +39,7 @@ class StringCalculatorOperatorTest {
     }
 
     @ParameterizedTest
-    @DisplayName("입력_테스트")
+    @DisplayName("입력 테스트")
     @MethodSource("calcArgs")
     void calculate(String operator, double e1, double e2, double result) {
         assertThat(StringCalculatorOperator.from(operator).calculate(e1, e2)).isEqualTo(result);
