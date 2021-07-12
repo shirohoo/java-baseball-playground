@@ -2,7 +2,7 @@ package calculator;
 
 import java.util.Scanner;
 
-public class StringCalculatorFacade {
+class StringCalculatorFacade {
     public static void main(String[] args) {
         try(Scanner sc = new Scanner(System.in)) {
             String input = sc.nextLine();

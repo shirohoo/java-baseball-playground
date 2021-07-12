@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 import static java.lang.Double.valueOf;
 
-public class StringCalculator {
+class StringCalculator {
 
     private String[] values;
 
@@ -26,7 +26,7 @@ public class StringCalculator {
         this.operators = operators;
     }
 
-    public StringCalculator enter(final String s) {
+    StringCalculator enter(final String s) {
         values = s.split(" ");
         if(values.length < 3) {
             throw new IllegalArgumentException("입력값이 올바르지 않습니다");
@@ -63,7 +63,7 @@ public class StringCalculator {
         }
     }
 
-    public double calculate() {
+    double calculate() {
         result = operands.poll();
         while(operands.size() != 0) {
             Operator operator = Operator.from(operators.poll());
