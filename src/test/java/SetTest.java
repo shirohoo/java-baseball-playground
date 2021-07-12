@@ -10,9 +10,9 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SetTest {
+class SetTest {
 
-    private Set<Integer> numbers;
+    Set<Integer> numbers;
 
     @BeforeEach
     void setUp() {
