@@ -5,9 +5,7 @@ import java.util.LinkedList;
 import static java.lang.Double.valueOf;
 
 class StringCalculator {
-
     private String[] values;
-
     private LinkedList<Double> operands;
     private LinkedList<String> operators;
 
@@ -17,7 +15,7 @@ class StringCalculator {
         this(new LinkedList<>(), new LinkedList<>());
     }
 
-    public static StringCalculator createStringCalculator() {
+    static StringCalculator createStringCalculator() {
         return new StringCalculator();
     }
 
