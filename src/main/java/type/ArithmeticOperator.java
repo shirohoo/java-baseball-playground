@@ -1,9 +1,9 @@
-package calculator;
+package type;
 
 import java.util.Arrays;
 import java.util.function.BinaryOperator;
 
-enum StringCalculatorOperator {
+public enum ArithmeticOperator {
     PLUS("+", (e1, e2) -> e1 + e2),
     MINUS("-", (e1, e2) -> e1 - e2),
     DIVISION("/", (e1, e2) -> e1 / e2),
@@ -12,19 +12,19 @@ enum StringCalculatorOperator {
     private String operator;
     private BinaryOperator<Double> binaryOperator;
 
-    StringCalculatorOperator(final String operator, final BinaryOperator<Double> binaryOperator) {
+    ArithmeticOperator(final String operator, final BinaryOperator<Double> binaryOperator) {
         this.operator = operator;
         this.binaryOperator = binaryOperator;
     }
 
-    static StringCalculatorOperator from(final String operator) {
-        return Arrays.stream(StringCalculatorOperator.values())
+    public static ArithmeticOperator from(final String operator) {
+        return Arrays.stream(ArithmeticOperator.values())
                      .filter(value -> value.operator.equals(operator))
                      .findFirst()
-                     .orElseThrow(() -> new IllegalArgumentException("입력값이 올바르지 않습니다"));
+                     .orElseThrow(() -> new IllegalArgumentException(Strings.INPUT_ERROR_MESSAGE));
     }
 
-    Double calculate(final Double e1, final Double e2) {
+    public Double operation(final Double e1, final Double e2) {
         return binaryOperator.apply(e1, e2);
     }
 }

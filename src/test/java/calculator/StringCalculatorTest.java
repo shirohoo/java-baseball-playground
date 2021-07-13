@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import type.Strings;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -14,7 +15,7 @@ class StringCalculatorTest {
 
     @BeforeEach
     void setUp() {
-        calculator = StringCalculator.createStringCalculator();
+        calculator = StringCalculator.create();
     }
 
     @ParameterizedTest
@@ -28,7 +29,7 @@ class StringCalculatorTest {
     void enter(String param) {
         assertThatThrownBy(() -> calculator.enter(param))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("입력값이 올바르지 않습니다");
+                .hasMessageContaining(Strings.INPUT_ERROR_MESSAGE);
     }
 
     @ParameterizedTest
