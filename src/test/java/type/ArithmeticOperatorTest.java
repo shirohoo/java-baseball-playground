@@ -22,7 +22,7 @@ class ArithmeticOperatorTest {
         if(operator.contains(" ")) {
             assertThatThrownBy(() -> ArithmeticOperator.from(operator))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining(Strings.INPUT_ERROR_MESSAGE);
+                    .hasMessageContaining(StringFactory.INPUT_ERROR_MESSAGE);
         }
     }
 

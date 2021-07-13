@@ -1,6 +1,6 @@
 package type;
 
-public class Strings {
+public class StringFactory {
     public static final String ENTER_INPUT = "입력 : ";
     public static final String RESULT = "결과 : ";
     public static final String INPUT_ERROR_MESSAGE = "입력값이 올바르지 않습니다.";

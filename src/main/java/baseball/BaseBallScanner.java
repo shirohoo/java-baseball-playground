@@ -1,7 +1,7 @@
 package baseball;
 
 import java.util.Scanner;
-import type.Strings;
+import type.StringFactory;
 
 class BaseBallScanner {
     private final Scanner scanner = new Scanner(System.in);
@@ -19,11 +19,11 @@ class BaseBallScanner {
     }
 
     int restartQuestion() {
-        System.out.println(Strings.RESTART_QUESTION);
+        System.out.println(StringFactory.RESTART_QUESTION);
         int input = scanner.nextInt();
         while (input != 1 && input != 2) {
-            System.out.println(Strings.INPUT_ERROR_MESSAGE);
-            System.out.println(Strings.RESTART_QUESTION);
+            System.out.println(StringFactory.INPUT_ERROR_MESSAGE);
+            System.out.println(StringFactory.RESTART_QUESTION);
             input = scanner.nextInt();
         }
         scanner.nextLine();

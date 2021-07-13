@@ -21,7 +21,7 @@ public enum ArithmeticOperator {
         return Arrays.stream(ArithmeticOperator.values())
                      .filter(value -> value.operator.equals(operator))
                      .findFirst()
-                     .orElseThrow(() -> new IllegalArgumentException(Strings.INPUT_ERROR_MESSAGE));
+                     .orElseThrow(() -> new IllegalArgumentException(StringFactory.INPUT_ERROR_MESSAGE));
     }
 
     public Double operation(final Double e1, final Double e2) {

@@ -1,6 +1,6 @@
 package baseball;
 
-import type.Strings;
+import type.StringFactory;
 
 class BaseBallFacade {
     private final BaseBallScanner scanner;
@@ -31,7 +31,7 @@ class BaseBallFacade {
             create().run();
         }
         if (trigger == 0) {
-            System.out.println(Strings.GAME_SET_MESSAGE);
+            System.out.println(StringFactory.GAME_SET_MESSAGE);
             System.exit(0);
         }
     }

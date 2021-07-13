@@ -4,7 +4,7 @@ import static java.lang.Double.valueOf;
 
 import java.util.LinkedList;
 import type.ArithmeticOperator;
-import type.Strings;
+import type.StringFactory;
 
 class StringCalculator {
     private final LinkedList<Double> operands;
@@ -26,7 +26,7 @@ class StringCalculator {
     StringCalculator enter(final String s) {
         String[] values = s.split(" ");
         if (values.length < 3) {
-            throw new IllegalArgumentException(Strings.INPUT_ERROR_MESSAGE);
+            throw new IllegalArgumentException(StringFactory.INPUT_ERROR_MESSAGE);
         }
         for (int i = 0; i < values.length; i++) {
             validate(i, values[i]);
@@ -37,10 +37,10 @@ class StringCalculator {
 
     private void validate(final int idx, final String value) {
         if (idx % 2 == 0 && !isNumeric(value)) {
-            throw new IllegalArgumentException(Strings.INPUT_ERROR_MESSAGE);
+            throw new IllegalArgumentException(StringFactory.INPUT_ERROR_MESSAGE);
         }
         if (idx % 2 == 1 && isNumeric(value)) {
-            throw new IllegalArgumentException(Strings.INPUT_ERROR_MESSAGE);
+            throw new IllegalArgumentException(StringFactory.INPUT_ERROR_MESSAGE);
         }
     }
 
