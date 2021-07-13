@@ -1,37 +1,41 @@
 package type;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.stream.Stream;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 class ArithmeticOperatorTest {
     @ParameterizedTest
-    @DisplayName("입력 테스트")
-    @MethodSource("inputArgs")
-    void enter(String operator, Class clazz) {
-        if(!operator.contains(" ")) {
-            assertThat(ArithmeticOperator.from(operator).getClass()).isEqualTo(clazz);
-            return;
-        }
-        if(operator.contains(" ")) {
-            assertThatThrownBy(() -> ArithmeticOperator.from(operator))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining(StringFactory.INPUT_ERROR_MESSAGE);
-        }
+    @DisplayName("정상 입력 테스트")
+    @MethodSource("normalInputArgs")
+    void normalInput(String operator, Class clazz) {
+        assertThat(ArithmeticOperator.from(operator).getClass()).isEqualTo(clazz);
     }
 
-    static Stream<Arguments> inputArgs() {
+    static Stream<Arguments> normalInputArgs() {
         return Stream.of(
                 Arguments.of("+", ArithmeticOperator.class),
                 Arguments.of("-", ArithmeticOperator.class),
                 Arguments.of("/", ArithmeticOperator.class),
-                Arguments.of("*", ArithmeticOperator.class),
+                Arguments.of("*", ArithmeticOperator.class));
+    }
+
+    @ParameterizedTest
+    @DisplayName("비정상 입력 테스트")
+    @MethodSource("abnormalInputArgs")
+    void abnormalInput(String operator, Class clazz) {
+        assertThatThrownBy(() -> ArithmeticOperator.from(operator))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining(StringFactory.INPUT_ERROR_MESSAGE);
+    }
+
+    static Stream<Arguments> abnormalInputArgs() {
+        return Stream.of(
                 Arguments.of(" + ", ArithmeticOperator.class),
                 Arguments.of(" - ", ArithmeticOperator.class),
                 Arguments.of(" / ", ArithmeticOperator.class),
