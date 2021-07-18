@@ -1,68 +1,70 @@
 package calculator;
 
-import static java.lang.Double.valueOf;
-
-import java.util.LinkedList;
 import type.ArithmeticOperator;
 import type.StringFactory;
 
+import java.util.LinkedList;
+
 class StringCalculator {
-    private final LinkedList<Double> operands;
-    private final LinkedList<String> operators;
+    private final Operators<Double> operands;
+    private final Operators<String> operators;
 
     static StringCalculator create() {
         return new StringCalculator();
     }
 
     private StringCalculator() {
-        this(new LinkedList<>(), new LinkedList<>());
+        this(Operators.from(new LinkedList<>()),
+             Operators.from(new LinkedList<>()));
     }
 
-    private StringCalculator(LinkedList<Double> operands, LinkedList<String> operators) {
+    private StringCalculator(Operators operands, Operators operators) {
         this.operands = operands;
         this.operators = operators;
     }
 
     StringCalculator enter(final String s) {
         String[] values = s.split(" ");
-        if (values.length < 3) {
+        if(values.length < 3) {
             throw new IllegalArgumentException(StringFactory.INPUT_ERROR_MESSAGE);
         }
-        for (int i = 0; i < values.length; i++) {
+        for(int i = 0; i < values.length; i++) {
             validate(i, values[i]);
-            add(values[i]);
+            putIntoStack(values[i]);
         }
         return this;
     }
 
-    private void validate(final int idx, final String value) {
-        if (idx % 2 == 0 && !isNumeric(value)) {
+    private void validate(final int index, final String value) {
+        if(isEvenNumber(index) && !isNumeric(value)) {
             throw new IllegalArgumentException(StringFactory.INPUT_ERROR_MESSAGE);
         }
-        if (idx % 2 == 1 && isNumeric(value)) {
+        if(!isEvenNumber(index) && isNumeric(value)) {
             throw new IllegalArgumentException(StringFactory.INPUT_ERROR_MESSAGE);
         }
     }
 
-    private static boolean isNumeric(final String s) {
-        if ("".equals(s)) {
-            return false;
-        }
-        return s.matches("-?\\d+(\\.\\d+)?");
+    private boolean isEvenNumber(final int index) {
+        return index % 2 == 0;
     }
 
-    private void add(final String value) {
-        if (isNumeric(value)) {
-            operands.add(valueOf(value));
+    private boolean isNumeric(final String value) {
+        return value.matches("-?\\d+(\\.\\d+)?");
+    }
+
+    private void putIntoStack(final String value) {
+        if(isNumeric(value)) {
+            Double number = Double.valueOf(value);
+            operands.add(number);
         }
-        if (!isNumeric(value)) {
+        if(!isNumeric(value)) {
             operators.add(value);
         }
     }
 
     double calculate() {
         double result = operands.poll();
-        while (operands.size() != 0) {
+        while(operands.size() != 0) {
             ArithmeticOperator operator = ArithmeticOperator.from(this.operators.poll());
             result = operator.operation(result, operands.poll());
         }

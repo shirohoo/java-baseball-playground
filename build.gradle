@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 group 'study.io'
@@ -16,4 +17,65 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+ext {
+    set('reportDir', file('src/report'))
+    excludeFilter = [
+            '**/test/**',
+            '**/*Runner.*'
+    ]
+}
+
+build {
+    dependsOn(':jacoco')
+}
+
+task jacoco(type: Test) {
+    group 'verification'
+    description 'Runs the unit tests and verify coverage using jacoco'
+
+
+    dependsOn(
+            ':jacocoTestReport',
+            ':jacocoTestCoverageVerification'
+    )
+
+
+    tasks['jacocoTestCoverageVerification'].mustRunAfter(tasks['jacocoTestReport'])
+}
+
+jacocoTestReport {
+    reports {
+        html.enabled true
+        html.destination file("$reportDir/")
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: excludeFilter)
+        }))
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+            element = 'CLASS'
+
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.00
+            }
+
+            limit {
+                counter = 'LINE'
+                value = 'TOTALCOUNT'
+                maximum = 250
+            }
+            excludes = excludeFilter
+        }
+    }
 }
