@@ -18,7 +18,7 @@ class StringCalculator {
              Operators.from(new LinkedList<>()));
     }
 
-    private StringCalculator(Operators operands, Operators operators) {
+    private StringCalculator(Operators<Double> operands, Operators<String> operators) {
         this.operands = operands;
         this.operators = operators;
     }
@@ -49,24 +49,24 @@ class StringCalculator {
     }
 
     private boolean isNumeric(final String value) {
-        return value.matches("-?\\d+(\\.\\d+)?");
+        return value.matches("[0-9]");
     }
 
     private void putIntoStack(final String value) {
         if(isNumeric(value)) {
             Double number = Double.valueOf(value);
-            operands.add(number);
+            this.operands.add(number);
         }
         if(!isNumeric(value)) {
-            operators.add(value);
+            this.operators.add(value);
         }
     }
 
     double calculate() {
-        double result = operands.poll();
-        while(operands.size() != 0) {
+        double result = this.operands.poll();
+        while(this.operands.size() != 0) {
             ArithmeticOperator operator = ArithmeticOperator.from(this.operators.poll());
-            result = operator.operation(result, operands.poll());
+            result = operator.operation(result, this.operands.poll());
         }
         return result;
     }
